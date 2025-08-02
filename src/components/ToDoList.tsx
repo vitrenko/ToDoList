@@ -3,6 +3,7 @@ import type {JSX} from "react";
 import ItemAdd from "./ItemAdd.tsx";
 import Item from "./Item.tsx";
 import type {Task} from "../api/Task.ts";
+import {FormGroup} from "@mui/material";
 
 export default function ToDoList() {
   const tasks: string | null = localStorage.getItem("tasks");
@@ -23,6 +24,22 @@ export default function ToDoList() {
     }
   };
 
+  const handleTaskEdit = (oldTaskValue: string, newTaskValue: string) => {
+    const updTaskArr = taskList!.map((task) => {
+      if (task.taskDef == oldTaskValue) {
+        task.taskDef = newTaskValue;
+      }
+      return task;
+    });
+
+    setTaskList(updTaskArr);
+  };
+
+  const handleTaskDelete = (taskDef: string) => {
+    const updTaskArr = taskList!.filter(task => task.taskDef !== taskDef);
+    setTaskList(updTaskArr);
+  };
+
   useEffect(() => {
     if (taskList !== null) localStorage.setItem("tasks", JSON.stringify(taskList));
   }, [taskList]);
@@ -37,15 +54,19 @@ export default function ToDoList() {
           key={item.taskDef}
           isDone={item.isDone}
           taskDef={item.taskDef}
+          handleTaskDelete={handleTaskDelete}
+          handleTaskEdit={handleTaskEdit}
         />
       )
     );
   };
 
   return (
-    <div>
-      <ItemAdd onClick={handleTaskAdd} />
-      {showTasks()}
+    <div className="m-[20px]">
+      <ItemAdd onSubmit={handleTaskAdd} />
+      <FormGroup>
+        {showTasks()}
+      </FormGroup>
     </div>
   );
 }
