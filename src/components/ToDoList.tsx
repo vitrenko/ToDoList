@@ -1,10 +1,10 @@
 import {useState, useEffect} from "react";
 import type {JSX} from "react";
-import ItemAdd from "./ItemAdd.tsx";
-import Item from "./Item.tsx";
-import type {Task} from "../api/Task.ts";
+import ItemAdd from "./ItemAdd";
+import Item from "./Item";
+import type {Task} from "../api/Task";
 import {FormGroup} from "@mui/material";
-import TaskListContext from "../contexts/TaskListContext.ts";
+import TaskListContext from "../contexts/TaskListContext";
 
 export default function ToDoList() {
   const tasks: string | null = localStorage.getItem("tasks");

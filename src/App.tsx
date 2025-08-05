@@ -1,5 +1,5 @@
 import './App.css'
-import ToDoList from "./components/ToDoList.tsx";
+import ToDoList from "./components/ToDoList";
 
 function App() {
 

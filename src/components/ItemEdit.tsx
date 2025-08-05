@@ -1,7 +1,7 @@
 import {Box, Button, TextField} from "@mui/material";
 import React, {type FormEvent, useState, useContext} from "react";
-import TaskItemContext from "../contexts/TaskItemContext.ts";
-import TaskListContext from "../contexts/TaskListContext.ts";
+import TaskItemContext from "../contexts/TaskItemContext";
+import TaskListContext from "../contexts/TaskListContext";
 
 export default function ItemEdit() {
   const tasks = useContext(TaskListContext);

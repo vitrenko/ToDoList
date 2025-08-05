@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import type {Task} from "../api/Task.ts";
+import type {Task} from "../api/Task";
 
 interface contextObj {
   taskList: Task[] | null,

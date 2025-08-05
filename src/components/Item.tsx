@@ -1,10 +1,10 @@
 import {useContext, useState} from "react";
 import {FormControlLabel, Checkbox} from "@mui/material";
 import {DeleteForeverOutlined, Edit} from "@mui/icons-material";
-import type {Task} from "../api/Task.ts";
+import type {Task} from "../api/Task";
 import ItemEdit from "./ItemEdit.tsx";
-import TaskItemContext from "../contexts/TaskItemContext.ts";
-import TaskListContext from "../contexts/TaskListContext.ts";
+import TaskItemContext from "../contexts/TaskItemContext";
+import TaskListContext from "../contexts/TaskListContext";
 
 interface ItemPropTypes {
   isDone: boolean;

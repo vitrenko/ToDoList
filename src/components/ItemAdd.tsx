@@ -1,6 +1,6 @@
 import {Box, Button, TextField} from "@mui/material";
 import React, {type FormEvent, useState, useContext} from "react";
-import TaskListContext from "../contexts/TaskListContext.ts";
+import TaskListContext from "../contexts/TaskListContext";
 
 export default function ItemAdd() {
   const [value, setValue] = useState('');
