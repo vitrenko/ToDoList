@@ -1,16 +1,28 @@
 import {Box, Button, TextField} from "@mui/material";
-import React, {type FormEvent, useState} from "react";
+import React, {type FormEvent, useState, useContext} from "react";
+import TaskListContext from "../contexts/TaskListContext.ts";
 
-export default function ItemAdd({ onSubmit }: { onSubmit: (taskValue: string) => void }) {
+export default function ItemAdd() {
   const [value, setValue] = useState('');
+  const tasks = useContext(TaskListContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
+  const handleTaskAdd = (taskValue: string):void => {
+    if (tasks!.taskList) {
+      const taskArray = [...tasks!.taskList, {isDone: false, taskDef: taskValue}];
+      tasks!.setTaskList(taskArray);
+    } else {
+      tasks!.setTaskList([{isDone: false, taskDef: taskValue}]);
+    }
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onSubmit(value);
+    handleTaskAdd(value);
+    setValue("");
   };
 
   return <div>

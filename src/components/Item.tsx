@@ -1,19 +1,21 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {FormControlLabel, Checkbox} from "@mui/material";
 import {DeleteForeverOutlined, Edit} from "@mui/icons-material";
 import type {Task} from "../api/Task.ts";
 import ItemEdit from "./ItemEdit.tsx";
+import TaskItemContext from "../contexts/TaskItemContext.ts";
+import TaskListContext from "../contexts/TaskListContext.ts";
 
 interface ItemPropTypes {
   isDone: boolean;
   taskDef: string;
-  handleTaskDelete: (taskDef: string) => void;
-  handleTaskEdit: (oldTaskDef: string, newTaskDef: string) => void;
 }
 
-function Item({ isDone, taskDef, handleTaskDelete, handleTaskEdit }: ItemPropTypes) {
+function Item({ isDone, taskDef }: ItemPropTypes) {
   const [checked, setChecked] = useState(isDone);
   const [isEdit, setIsEdit] = useState(false);
+
+  const tasks = useContext(TaskListContext);
 
   const handleCheck = (): void => {
     setChecked(!checked);
@@ -31,8 +33,15 @@ function Item({ isDone, taskDef, handleTaskDelete, handleTaskEdit }: ItemPropTyp
     setIsEdit(true);
   };
 
+  const handleTaskDelete = (taskDef: string) => {
+    const updTaskArr = tasks!.taskList!.filter(task => task.taskDef !== taskDef);
+    tasks!.setTaskList(updTaskArr);
+  };
+
   if (isEdit) {
-    return <ItemEdit taskDef={taskDef} handleTaskEdit={handleTaskEdit} />
+    return <TaskItemContext value={taskDef}>
+      <ItemEdit />
+    </TaskItemContext>
   }
   return <div className="flex flex-row items-center">
     <FormControlLabel
