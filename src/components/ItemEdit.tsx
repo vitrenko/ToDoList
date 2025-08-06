@@ -1,11 +1,11 @@
 import {Box, Button, TextField} from "@mui/material";
-import React, {type FormEvent, useState, useContext} from "react";
-import TaskItemContext from "../contexts/TaskItemContext";
-import TaskListContext from "../contexts/TaskListContext";
+import React, {type FormEvent, useState} from "react";
+import useTaskList from "../hooks/useTaskList.ts";
+import useTaskItem from "../hooks/useTaskItem.ts";
 
 export default function ItemEdit() {
-  const tasks = useContext(TaskListContext);
-  const taskDef = useContext(TaskItemContext);
+  const tasks = useTaskList();
+  const taskDef = useTaskItem();
 
   const [value, setValue] = useState(taskDef);
 
@@ -14,22 +14,20 @@ export default function ItemEdit() {
   };
 
   const handleTaskEdit = (oldTaskValue: string, newTaskValue: string) => {
-    const updTaskArr = tasks!.taskList!.map((task) => {
+    const updTaskArr = tasks.taskList!.map((task) => {
       if (task.taskDef == oldTaskValue) {
         task.taskDef = newTaskValue;
       }
       return task;
     });
 
-    tasks!.setTaskList(updTaskArr);
+    tasks.setTaskList(updTaskArr);
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     handleTaskEdit(taskDef, value);
   }
-
-
 
   return (
     <div>
@@ -54,6 +52,4 @@ export default function ItemEdit() {
       </Box>
     </div>
   );
-
-
 }
