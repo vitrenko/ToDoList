@@ -33,6 +33,10 @@ function Item({ isDone, taskDef }: ItemPropTypes) {
     setIsEdit(!isEdit);
   };
 
+  const handleCancelEdit = () => {
+    setIsEdit(false);
+  };
+
   const handleTaskDelete = (taskDef: string) => {
     const updTaskArr = tasks.taskList!.filter(task => task.taskDef !== taskDef);
     tasks.setTaskList(updTaskArr);
@@ -40,7 +44,7 @@ function Item({ isDone, taskDef }: ItemPropTypes) {
 
   if (isEdit) {
     return <TaskItemContext value={taskDef}>
-      <ItemEdit />
+      <ItemEdit handleCancelEdit={handleCancelEdit} />
     </TaskItemContext>
   }
 
