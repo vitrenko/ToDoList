@@ -30,7 +30,7 @@ function Item({ isDone, taskDef }: ItemPropTypes) {
   };
 
   const handleEditClick = () => {
-    setIsEdit(!isEdit);
+    setIsEdit(true);
   };
 
   const handleCancelEdit = () => {

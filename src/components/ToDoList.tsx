@@ -36,12 +36,14 @@ export default function ToDoList() {
 
   return (
     <div className="m-[20px]">
-      <TaskListContext value={{taskList, setTaskList}}>
-        <ItemAdd />
-        <FormGroup>
-          {showTasks()}
-        </FormGroup>
-      </TaskListContext>
+      <div className="rounded-3xl bg-sky-100/50 p-10 w-2/5">
+        <TaskListContext value={{taskList, setTaskList}}>
+          <ItemAdd />
+          <FormGroup>
+            {showTasks()}
+          </FormGroup>
+        </TaskListContext>
+      </div>
     </div>
   );
 }

@@ -32,11 +32,14 @@ export default function ItemAdd() {
         id="outlined-basic"
         label="Add your task here"
         variant="outlined"
+        color="primary"
+        size="small"
         value={value}
         required
         slotProps={
           {htmlInput: { minLength: 3 }}
         }
+        className="m-1!"
       />
       <Button
         variant="contained"
