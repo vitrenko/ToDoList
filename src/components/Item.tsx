@@ -15,6 +15,7 @@ function Item({ taskId, isDone, taskDef }: Task) {
 
   const handleCheck = (): void => {
     setChecked(!checked);
+
     const taskArr: Task[] = JSON.parse(localStorage.getItem("tasks")!);
     const updTaskArr = taskArr.map(task => {
       if (task.taskId == taskId) {
@@ -23,11 +24,19 @@ function Item({ taskId, isDone, taskDef }: Task) {
       return task;
     });
 
-    updTaskArr.sort((firstItem, secondItem) => {
-      return (firstItem.isDone === secondItem.isDone) ? 0 : firstItem.isDone ? -1: 1;
-    });
+    const itemIndex = updTaskArr.findIndex(item => item.taskId === taskId);
+    if (itemIndex == -1) {
+      throw new Error("The task not found!");
+    }
+    const [removedTask] = updTaskArr.splice(itemIndex, 1);
 
-    tasks.setTaskList(updTaskArr.reverse());
+    if (removedTask.isDone) {
+      updTaskArr.push(removedTask);
+    } else {
+      updTaskArr.unshift(removedTask);
+    }
+
+    tasks.setTaskList(updTaskArr);
   };
 
   const handleEditClick = () => {

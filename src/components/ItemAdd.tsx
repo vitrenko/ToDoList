@@ -3,7 +3,7 @@ import React, {type FormEvent, useState, useContext} from "react";
 import TaskListContext from "../contexts/TaskListContext";
 
 export default function ItemAdd() {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const tasks = useContext(TaskListContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +12,7 @@ export default function ItemAdd() {
 
   const handleTaskAdd = (taskValue: string):void => {
     if (tasks!.taskList) {
-      const taskArray = [...tasks!.taskList, {taskId: Date.now(), isDone: false, taskDef: taskValue}];
+      const taskArray = [{taskId: Date.now(), isDone: false, taskDef: taskValue}, ...tasks!.taskList];
       tasks!.setTaskList(taskArray);
     } else {
       tasks!.setTaskList([{taskId: Date.now(), isDone: false, taskDef: taskValue}]);

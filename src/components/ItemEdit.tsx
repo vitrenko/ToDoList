@@ -15,7 +15,7 @@ export default function ItemEdit({handleStopEdit}: {handleStopEdit: () => void})
 
   const handleTaskEdit = (oldTaskValue: string, newTaskValue: string) => {
     const updTaskArr = tasks.taskList!.map((task) => {
-      if (task.taskDef == oldTaskValue) {
+      if (task.taskDef === oldTaskValue) {
         task.taskDef = newTaskValue;
       }
       return task;
