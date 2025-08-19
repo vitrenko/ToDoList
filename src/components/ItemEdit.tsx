@@ -3,7 +3,7 @@ import React, {type FormEvent, useState} from "react";
 import useTaskList from "../hooks/useTaskList.ts";
 import useTaskItem from "../hooks/useTaskItem.ts";
 
-export default function ItemEdit({handleCancelEdit}: {handleCancelEdit: () => void}) {
+export default function ItemEdit({handleStopEdit}: {handleStopEdit: () => void}) {
   const tasks = useTaskList();
   const taskDef = useTaskItem();
 
@@ -27,6 +27,7 @@ export default function ItemEdit({handleCancelEdit}: {handleCancelEdit: () => vo
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     handleTaskEdit(taskDef, value);
+    handleStopEdit();
   }
 
   return (
@@ -50,7 +51,7 @@ export default function ItemEdit({handleCancelEdit}: {handleCancelEdit: () => vo
           Update
         </Button>
         <Button
-          onClick={handleCancelEdit}
+          onClick={handleStopEdit}
           variant="outlined"
           color="error"
         >

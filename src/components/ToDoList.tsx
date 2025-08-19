@@ -27,7 +27,8 @@ export default function ToDoList() {
 
     return taskList.map((item: Task) =>
       <Item
-        key={item.taskDef}
+        key={item.taskId}
+        taskId={item.taskId}
         isDone={item.isDone}
         taskDef={item.taskDef}
       />

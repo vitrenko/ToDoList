@@ -12,10 +12,10 @@ export default function ItemAdd() {
 
   const handleTaskAdd = (taskValue: string):void => {
     if (tasks!.taskList) {
-      const taskArray = [...tasks!.taskList, {isDone: false, taskDef: taskValue}];
+      const taskArray = [...tasks!.taskList, {taskId: Date.now(), isDone: false, taskDef: taskValue}];
       tasks!.setTaskList(taskArray);
     } else {
-      tasks!.setTaskList([{isDone: false, taskDef: taskValue}]);
+      tasks!.setTaskList([{taskId: Date.now(), isDone: false, taskDef: taskValue}]);
     }
   };
 

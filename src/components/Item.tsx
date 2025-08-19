@@ -6,12 +6,8 @@ import ItemEdit from "./ItemEdit.tsx";
 import TaskItemContext from "../contexts/TaskItemContext";
 import useTaskList from "../hooks/useTaskList.ts";
 
-interface ItemPropTypes {
-  isDone: boolean;
-  taskDef: string;
-}
 
-function Item({ isDone, taskDef }: ItemPropTypes) {
+function Item({ taskId, isDone, taskDef }: Task) {
   const [checked, setChecked] = useState(isDone);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -21,30 +17,35 @@ function Item({ isDone, taskDef }: ItemPropTypes) {
     setChecked(!checked);
     const taskArr: Task[] = JSON.parse(localStorage.getItem("tasks")!);
     const updTaskArr = taskArr.map(task => {
-      if (task.taskDef == taskDef) {
+      if (task.taskId == taskId) {
         task.isDone = !task.isDone;
       }
       return task;
     });
-    localStorage.setItem("tasks", JSON.stringify(updTaskArr));
+
+    updTaskArr.sort((firstItem, secondItem) => {
+      return (firstItem.isDone === secondItem.isDone) ? 0 : firstItem.isDone ? -1: 1;
+    });
+
+    tasks.setTaskList(updTaskArr.reverse());
   };
 
   const handleEditClick = () => {
     setIsEdit(true);
   };
 
-  const handleCancelEdit = () => {
+  const handleStopEdit = () => {
     setIsEdit(false);
   };
 
-  const handleTaskDelete = (taskDef: string) => {
-    const updTaskArr = tasks.taskList!.filter(task => task.taskDef !== taskDef);
+  const handleTaskDelete = (taskId: number) => {
+    const updTaskArr = tasks.taskList!.filter(task => task.taskId !== taskId);
     tasks.setTaskList(updTaskArr);
   };
 
   if (isEdit) {
     return <TaskItemContext value={taskDef}>
-      <ItemEdit handleCancelEdit={handleCancelEdit} />
+      <ItemEdit handleStopEdit={handleStopEdit} />
     </TaskItemContext>
   }
 
@@ -61,7 +62,7 @@ function Item({ isDone, taskDef }: ItemPropTypes) {
     />
     <DeleteForeverOutlined
       className="cursor-pointer"
-      onClick={() => handleTaskDelete(taskDef)}
+      onClick={() => handleTaskDelete(taskId)}
       color="warning"
       fontSize="medium"/>
   </div>
