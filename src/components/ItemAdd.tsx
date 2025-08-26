@@ -35,7 +35,7 @@ export default function ItemAdd() {
     <Box
       component="form"
       onSubmit={handleSubmit}
-      className="flex items-center justify-start"
+      className="flex items-start justify-start"
     >
       <TextField
         onChange={handleChange}
@@ -43,19 +43,35 @@ export default function ItemAdd() {
         label={isDuplicate ? "Error" : "Add your task here"}
         variant="outlined"
         color="primary"
-        size="small"
         value={value}
         required
         slotProps={
-          {htmlInput: { minLength: 3 }}
+          {
+            htmlInput: {
+              minLength: 3,
+            },
+            input: {
+              style: {
+                boxShadow: "rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px",
+              }
+            }
+          }
         }
+        sx={{
+          marginRight: "16px",
+          marginBottom: isDuplicate ? 0 : "23px",
+        }}
         error={isDuplicate}
         helperText={isDuplicate && "This task already exists"}
       />
       <Button
         variant="contained"
-        color="success"
+        size="large"
         type="submit"
+        sx={{
+          backgroundColor: "#35689a",
+          height: 56,
+        }}
       >
         ADD TASK
       </Button>

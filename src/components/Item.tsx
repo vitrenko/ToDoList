@@ -60,7 +60,16 @@ function Item({ taskId, isDone, taskDef }: Task) {
 
   return <div className="flex flex-row items-center">
     <FormControlLabel
-      control={<Checkbox onClick={handleCheck} size="large" color="success" checked={checked}/>}
+      control={<Checkbox
+        onClick={handleCheck}
+        size="large"
+        checked={checked}
+        sx={{
+          "&.Mui-checked": {
+            color: "#35689a",
+          }
+        }}
+      />}
       label={taskDef}
     />
     <Edit
