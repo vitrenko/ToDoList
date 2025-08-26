@@ -2,6 +2,7 @@
     font-family: Roboto, Arial, sans-serif;
 }
 
-#root {
-    background: url("assets/cat-with-pen.jpeg") no-repeat left top/cover fixed;
+html {
+    font-size: 16px;
+    background: url("assets/cat-with-pen.jpeg") no-repeat right top/cover fixed;
 }

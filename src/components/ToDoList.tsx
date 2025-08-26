@@ -37,7 +37,7 @@ export default function ToDoList() {
 
   return (
     <div className="m-[20px]">
-      <div className="rounded-3xl bg-sky-100/50 p-10 w-2/5 shadow-xl/20">
+      <div className="shadow-xl/20 rounded-3xl bg-sky-100/70 p-8 w-full sm:w-4/5 md:w-3/5 lg:w-2/5">
         <TaskListContext value={{taskList, setTaskList}}>
           <ItemAdd />
           <FormGroup>

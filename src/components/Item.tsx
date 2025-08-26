@@ -58,7 +58,7 @@ function Item({ taskId, isDone, taskDef }: Task) {
     </TaskItemContext>
   }
 
-  return <div className="flex flex-row items-center">
+  return <div className="flex flex-row items-center justify-between">
     <FormControlLabel
       control={<Checkbox
         onClick={handleCheck}
@@ -72,17 +72,19 @@ function Item({ taskId, isDone, taskDef }: Task) {
       />}
       label={taskDef}
     />
-    <Edit
-      className="cursor-pointer"
-      onClick={handleEditClick}
-      color="primary"
-      fontSize="medium"
-    />
-    <DeleteForeverOutlined
-      className="cursor-pointer"
-      onClick={() => handleTaskDelete(taskId)}
-      color="warning"
-      fontSize="medium"/>
+    <div className="basis-[52px] grow-0 shrink-0">
+      <Edit
+        className="cursor-pointer mr-1"
+        onClick={handleEditClick}
+        color="primary"
+        fontSize="medium"
+      />
+      <DeleteForeverOutlined
+        className="cursor-pointer"
+        onClick={() => handleTaskDelete(taskId)}
+        color="warning"
+        fontSize="medium"/>
+    </div>
   </div>
 }
 
