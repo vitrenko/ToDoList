@@ -8,6 +8,7 @@ export default function ItemEdit({handleStopEdit}: {handleStopEdit: () => void})
   const taskDef = useTaskItem();
 
   const [value, setValue] = useState(taskDef);
+  const [isDuplicate, setIsDuplicate] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
@@ -26,22 +27,33 @@ export default function ItemEdit({handleStopEdit}: {handleStopEdit: () => void})
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    handleTaskEdit(taskDef, value);
-    handleStopEdit();
+
+    const isError = tasks.taskList!.some(task => task.taskDef === value) ?? false;
+    setIsDuplicate(isError);
+
+    if (!isError) {
+      handleTaskEdit(taskDef, value);
+      handleStopEdit();
+    }
   }
 
   return (
     <div>
-      <Box component="form" onSubmit={handleSubmit}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+      >
         <TextField
+          error={isDuplicate}
           onChange={handleChange}
           size="small"
           variant="filled"
-          label="Change task here"
+          label={isDuplicate ? "Error" : "Change task here"}
           required
           value={value}
           slotProps={{htmlInput: {minLength: 3}}}
           id="filled-size-small"
+          helperText={isDuplicate && "This task already exists"}
         />
         <Button
           variant="contained"

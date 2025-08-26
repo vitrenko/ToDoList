@@ -6,31 +6,41 @@ export default function ItemAdd() {
   const [value, setValue] = useState("");
   const tasks = useContext(TaskListContext);
 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const handleTaskAdd = (taskValue: string):void => {
-    if (tasks!.taskList) {
-      const taskArray = [{taskId: Date.now(), isDone: false, taskDef: taskValue}, ...tasks!.taskList];
+  const isDuplicate = tasks?.taskList?.some(task => task.taskDef === value) ?? false;
+
+  const handleTaskAdd = ():void => {
+    if (tasks?.taskList) {
+      const taskArray = [{taskId: Date.now(), isDone: false, taskDef: value}, ...tasks!.taskList];
       tasks!.setTaskList(taskArray);
     } else {
-      tasks!.setTaskList([{taskId: Date.now(), isDone: false, taskDef: taskValue}]);
+      tasks!.setTaskList([{taskId: Date.now(), isDone: false, taskDef: value}]);
     }
+
+    setValue("");
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    handleTaskAdd(value);
-    setValue("");
+    if (!isDuplicate) {
+      handleTaskAdd();
+    }
   };
 
   return <div>
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      className="flex items-center justify-start"
+    >
       <TextField
         onChange={handleChange}
         id="outlined-basic"
-        label="Add your task here"
+        label={isDuplicate ? "Error" : "Add your task here"}
         variant="outlined"
         color="primary"
         size="small"
@@ -39,7 +49,8 @@ export default function ItemAdd() {
         slotProps={
           {htmlInput: { minLength: 3 }}
         }
-        className="m-1!"
+        error={isDuplicate}
+        helperText={isDuplicate && "This task already exists"}
       />
       <Button
         variant="contained"
